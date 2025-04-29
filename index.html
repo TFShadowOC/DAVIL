@@ -9,4 +9,13 @@
     <div class="heart"></div>
 
 </body>
+    <script>
+    const heart = document.querySelector('.heart');
+    heart.addEventListener('click', () => {
+      heart.classList.add('beat-once');
+      setTimeout(() => {
+        heart.classList.remove('beat-once');
+      }, 600);
+    });
+  </script>  
 </html>
