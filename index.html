@@ -13,47 +13,46 @@
 </body>
     <script>
    const heart = document.querySelector('.heart');
-    const audio = document.getElementById('music');
+const audio = document.getElementById('music');
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const analyser = audioCtx.createAnalyser();
+analyser.fftSize = 256;
 
-    const source = audioCtx.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
+const source = audioCtx.createMediaElementSource(audio);
+source.connect(analyser);
+analyser.connect(audioCtx.destination);
 
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-    let lastBeat = 0;
-    const cooldown = 200; //ms
-    const beatThreshold = 140;
+let lastBeat = 425;
+const cooldown = 850; //ms
+const beatThreshold = 120; 
 
-    function animateHeart() {
-      analyser.getByteFrequencyData(dataArray);
-      const avg = dataArray.reduce((a, b) => a + b) / dataArray.length;
+function animateHeart() {
+  analyser.getByteFrequencyData(dataArray);
 
-      const now = Date.now();
-      if (avg > beatThreshold && now - lastBeat > cooldown) {
-        heart.classList.add('beat-once');
-        setTimeout(() => heart.classList.remove('beat-once'), 100);
-        lastBeat = now;
-      }
+  const maxFrequency = Math.max(...dataArray);
 
-      requestAnimationFrame(animateHeart);
-    }
+  const now = Date.now();
+  if (maxFrequency > beatThreshold && now - lastBeat > cooldown) {
+    heart.classList.remove('beat-once');
+    void heart.offsetWidth;
+    heart.classList.add('beat-once');
+    lastBeat = now;
+  }
 
-    heart.addEventListener('click', () => {
-      heart.classList.add('beat-once');
-      setTimeout(() => heart.classList.remove('beat-once'), 600);
+  requestAnimationFrame(animateHeart);
+}
 
-      if (audio.paused) {
-        audioCtx.resume();
-        audio.play();
-        animateHeart();
-      } else {
-        audio.pause();
-      }
-    });
+heart.addEventListener('click', () => {
+  if (audio.paused) {
+    audioCtx.resume();
+    audio.play();
+    animateHeart(); 
+  } else {
+    audio.pause();
+  }
+});
   </script>  
 </html>
