@@ -6,8 +6,11 @@ body {
     align-items: center;
     justify-content: center;
     background: #0b1522;
+    overflow: hidden;
   }
-  
+
+  /*Heart */
+
   .heart {
     position: relative;
     width: 200px;
@@ -88,6 +91,33 @@ body {
     }
     50% {
       transform: rotate(-45deg) scale(1.2);
+    }
+  }
+
+/*Floating heats */
+  .floating-heart {
+    position: absolute;
+    background-color: #db2777;
+    transform: rotate(-45deg);
+    animation: floatUp 8s linear forwards;
+    pointer-events: auto;
+    border-radius: 0;
+  }
+  
+  .floating-heart .lobe {
+    position: absolute;
+    background-color: #db2777;
+    border-radius: 50%;
+  }
+  
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: rotate(-45deg) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(-45deg) translateY(-100vh);
     }
   }
   
