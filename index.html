@@ -12,6 +12,53 @@
 
 </body>
     <script>
+        
+// Floating hearts
+function createFloatingHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+
+  const leftLobe = document.createElement("div");
+  leftLobe.classList.add("lobe", "left");
+
+  const rightLobe = document.createElement("div");
+  rightLobe.classList.add("lobe", "right");
+
+  heart.appendChild(leftLobe);
+  heart.appendChild(rightLobe);
+
+  const size = Math.random() * 30 + 20;
+  heart.style.width = `${size}px`;
+  heart.style.height = `${size}px`;
+  heart.style.left = `${Math.random() * window.innerWidth}px`;
+  heart.style.bottom = "0px";
+
+  // Adjusting the lobes' size and position
+  leftLobe.style.width = `${size}px`;
+  leftLobe.style.height = `${size}px`;
+  rightLobe.style.width = `${size}px`;
+  rightLobe.style.height = `${size}px`;
+  rightLobe.style.left = size / 2 + "px";
+  leftLobe.style.top = -size / 2 + "px";
+
+  // Interaction
+  heart.addEventListener("mouseenter", () => {
+    heart.style.transform += ` translateX(${(Math.random() - 0.5) * 50}px)`;
+  });
+
+  heart.addEventListener("click", () => {
+    heart.style.transform += " scale(1.5)";
+    setTimeout(() => heart.remove(), 300);
+  });
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+// Frequent heart creation
+setInterval(createFloatingHeart, 1600);
+
+        
+//Main heart animation n music
    const heart = document.querySelector('.heart');
 const audio = document.getElementById('music');
 
