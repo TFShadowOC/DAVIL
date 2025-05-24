@@ -1,4 +1,5 @@
 
+
 document.addEventListener('touchstart', function (e) {
   if (e.touches.length > 1) {
       e.preventDefault();
@@ -7,52 +8,56 @@ document.addEventListener('touchstart', function (e) {
 
 // Floating hearts
 function createFloatingHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("floating-heart");
-  
-    const leftLobe = document.createElement("div");
-    leftLobe.classList.add("lobe", "left");
-  
-    const rightLobe = document.createElement("div");
-    rightLobe.classList.add("lobe", "right");
-  
-    heart.appendChild(leftLobe);
-    heart.appendChild(rightLobe);
-  
-    const size = Math.random() * 30 + 20;
-    heart.style.width = `${size}px`;
-    heart.style.height = `${size}px`;
-    heart.style.left = `${Math.random() * window.innerWidth}px`;
-    heart.style.bottom = "0px";
-  
-    // Adjusting the lobes' size and position
-    leftLobe.style.width = `${size}px`;
-    leftLobe.style.height = `${size}px`;
-    rightLobe.style.width = `${size}px`;
-    rightLobe.style.height = `${size}px`;
-    rightLobe.style.left = size / 2 + "px";
-    leftLobe.style.top = -size / 2 + "px";
-  
-    // Interaction
-    heart.addEventListener("mouseenter", () => {
-      heart.style.transform += ` translateX(${(Math.random() - 0.5) * 50}px)`;
-    });
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
 
-  let lastMessageIndex = -1;
-  
-    heart.addEventListener("click", () => {
-      heart.style.transform += " scale(1.5)";
+  const leftLobe = document.createElement("div");
+  leftLobe.classList.add("lobe", "left");
 
+  const rightLobe = document.createElement("div");
+  rightLobe.classList.add("lobe", "right");
+
+  heart.appendChild(leftLobe);
+  heart.appendChild(rightLobe);
+
+  const size = Math.random() * 30 + 20;
+  heart.style.width = `${size}px`;
+  heart.style.height = `${size}px`;
+  heart.style.left = `${Math.random() * window.innerWidth}px`;
+  heart.style.bottom = "0px";
+
+  // Ajustar lóbulos
+  leftLobe.style.width = `${size}px`;
+  leftLobe.style.height = `${size}px`;
+  rightLobe.style.width = `${size}px`;
+  rightLobe.style.height = `${size}px`;
+  rightLobe.style.left = size / 2 + "px";
+  leftLobe.style.top = -size / 2 + "px";
+
+  heart.addEventListener("mouseenter", () => {
+    heart.style.transform += ` translateX(${(Math.random() - 0.5) * 50}px)`;
+  });
+
+  // Función común para mostrar mensaje
+  function handleHeartInteraction(e) {
+    e.preventDefault(); // Evita conflictos con scroll táctil
+    heart.style.transform += " scale(1.5)";
     const randomIndex = Math.floor(Math.random() * messages.length);
-      
-      showMessage(messages[randomIndex]);
-      
-      setTimeout(() => heart.remove(), 300);
-    });
-  
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 8000);
+    showMessage(messages[randomIndex]);
+    setTimeout(() => heart.remove(), 300);
   }
+
+  // Detecta si es táctil
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (isTouch) {
+    heart.addEventListener("touchstart", handleHeartInteraction, { passive: false });
+  } else {
+    heart.addEventListener("click", handleHeartInteraction);
+  }
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
   // Frequent heart creation
   setInterval(createFloatingHeart, 1600);
   
