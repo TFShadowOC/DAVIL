@@ -100,8 +100,9 @@ body {
     background-color: #db2777;
     transform: rotate(-45deg);
     animation: floatUp 8s linear forwards;
-    pointer-events: auto;
+    pointer-events: auto !importat;
     border-radius: 0;
+    touch-action: manipulation;
   }
   
   .floating-heart .lobe {
