@@ -100,7 +100,7 @@ body {
     background-color: #db2777;
     transform: rotate(-45deg);
     animation: floatUp 8s linear forwards;
-    pointer-events: auto !importat;
+    pointer-events: auto !important;
     border-radius: 0;
     touch-action: manipulation;
   }
