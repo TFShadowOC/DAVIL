@@ -120,7 +120,7 @@ heart.addEventListener("touchend", (e) => {
     "You are unique and special!",
     "You are a treasure!",
     "You're my light",
-    "This heart beats 4u";
+    "This heart beats 4u",
     "You are beautiful inside and out!",
   ];
 
