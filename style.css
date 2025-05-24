@@ -129,9 +129,10 @@ body {
     transform: translate(-50%, 0);
     background: rgba(255, 0, 100, 0.85);
     color: white;
-    padding: 12px 24px;
+    padding: 24px 36px;
     border-radius: 12px;
-    font-size: 18px;
+    font-size: 28px;
+    font-weight: bold;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease;
