@@ -38,7 +38,7 @@ function createFloatingHeart() {
     heart.style.transform += ` translateX(${(Math.random() - 0.5) * 50}px)`;
   });
 
-  // Función común para mostrar mensaje
+  // Show msg fun
   function handleHeartInteraction(e) {
     e.preventDefault(); // Evita conflictos con scroll táctil
     heart.style.transform += " scale(1.5)";
@@ -47,7 +47,7 @@ function createFloatingHeart() {
     setTimeout(() => heart.remove(), 300);
   }
 
-  // Detecta si es táctil
+  // If it is tactile
   const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   if (isTouch) {
     heart.addEventListener("touchstart", handleHeartInteraction, { passive: false });
@@ -105,6 +105,12 @@ function createFloatingHeart() {
       audio.pause();
     }
   });
+
+heart.addEventListener("touchend", (e) => {
+  e.preventDefault(); // Previene el comportamiento predeterminado, como el zoom
+  heart.dispatchEvent(new Event("click")); // Dispara el evento click manualmente
+});
+
 // Random MSG
   const messages = [
     "I love you!",
