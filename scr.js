@@ -37,9 +37,16 @@ function createFloatingHeart() {
     heart.addEventListener("mouseenter", () => {
       heart.style.transform += ` translateX(${(Math.random() - 0.5) * 50}px)`;
     });
+
+  let lastMessageIndex = -1;
   
     heart.addEventListener("click", () => {
       heart.style.transform += " scale(1.5)";
+
+    const randomIndex = Math.floor(Math.random() * messages.length);
+      
+      showMessage(messages[randomIndex]);
+      
       setTimeout(() => heart.remove(), 300);
     });
   
@@ -93,3 +100,32 @@ function createFloatingHeart() {
       audio.pause();
     }
   });
+// Random MSG
+  const messages = [
+    "I love you!",
+    "You are amazing!",
+    "You make my world in a way better",
+    "Stars are in your eyes!",
+    "You are unique and special!",
+    "You are a treasure!",
+    "You're my light",
+    "You are beautiful inside and out!",
+  ];
+
+  function showMessage(message) {
+  let popup = document.querySelector('.message-popup');
+  
+  if (!popup) {
+    popup = document.createElement('div');
+    popup.classList.add('message-popup');
+    document.body.appendChild(popup);
+  }
+  
+  popup.textContent = message;
+  popup.classList.add('show');
+  
+  setTimeout(() => {
+    popup.classList.remove('show');
+  }, 3000); // 3SEC MESSAGE Duration 
+}
+  
